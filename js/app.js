@@ -3,6 +3,9 @@
  */
  const cardList = ['fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath',
  					'fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath'];
+
+const deck = document.querySelector('.deck');
+const card = document.querySelectorAll('.deck li');
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -10,13 +13,11 @@
  *   - add each card's HTML to the page
  */
 
-
  function createCards() {
-	const deck = document.querySelector('.deck');
 	shuffle(cardList);
 	for (let i = 0; i < 16; i++){
 		const cardElement = document.createElement('li');
-		cardElement.classList.add('card', cardList[i]);
+		cardElement.classList.add('card', 'fas', cardList[i]);
 		deck.appendChild(cardElement);
 	}
 }
@@ -46,3 +47,13 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+deck.addEventListener('click', event => {
+	const clickedCard = event.target;
+	displayCardSymbol(clickedCard);
+	console.log("card is clicked");
+});
+
+function displayCardSymbol(target) {
+	target.classList.add('open', 'show');
+}
