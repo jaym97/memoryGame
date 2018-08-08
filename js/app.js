@@ -9,6 +9,7 @@ const card = document.querySelectorAll('.deck li');
 const openCards = [];
 let matchedCards = 0;
 let firstCard, secondCard;
+let moves = 0;
 createCards();
 /*
  * Display the cards on the page
@@ -58,6 +59,7 @@ deck.addEventListener('click', event => {
 	addToOpenedList(clickedCard);
 	if (openCards.length === 2){
 		compareCards(openCards[0], openCards[1]);
+		countMoves();
 	}
 });
 
@@ -85,4 +87,14 @@ function compareCards(firstCard, secondCard) {
 			openCards.length = 0;
 		}, 1000);
 	}
+
+	if (matchedCards === 8){
+		endGame();// TODO add function
+	}
+}
+
+function countMoves() {
+	moves++;
+	const movesDisplay = document.querySelector('.moves');
+	movesDisplay.textContent = moves;
 }
