@@ -6,6 +6,10 @@
 
 const deck = document.querySelector('.deck');
 const card = document.querySelectorAll('.deck li');
+const openCards = [];
+let matchedCards = 0;
+let firstCard, secondCard;
+createCards();
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -51,9 +55,34 @@ function shuffle(array) {
 deck.addEventListener('click', event => {
 	const clickedCard = event.target;
 	displayCardSymbol(clickedCard);
-	console.log("card is clicked");
+	addToOpenedList(clickedCard);
+	if (openCards.length === 2){
+		compareCards(openCards[0], openCards[1]);
+	}
 });
 
 function displayCardSymbol(target) {
-	target.classList.add('open', 'show');
+	target.classList.toggle('open');
+	target.classList.toggle('show');
+}
+
+function addToOpenedList(target) {
+	openCards.push(target);
+}
+
+function compareCards(firstCard, secondCard) {
+	if (firstCard.className === secondCard.className){
+		firstCard.classList.add('match');
+		secondCard.classList.add('match');
+		openCards.length = 0;
+		matchedCards++;
+		console.log(matchedCards);
+	}
+	else {
+		setTimeout(() => {
+			displayCardSymbol(firstCard);
+			displayCardSymbol(secondCard);
+			openCards.length = 0;
+		}, 1000);
+	}
 }
