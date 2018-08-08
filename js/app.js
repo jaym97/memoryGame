@@ -8,7 +8,6 @@ const deck = document.querySelector('.deck');
 const card = document.querySelectorAll('.deck li');
 const openCards = [];
 let matchedCards = 0;
-let firstCard, secondCard;
 let moves = 0;
 createCards();
 /*
@@ -55,11 +54,13 @@ function shuffle(array) {
 
 deck.addEventListener('click', event => {
 	const clickedCard = event.target;
-	displayCardSymbol(clickedCard);
-	addToOpenedList(clickedCard);
-	if (openCards.length === 2){
-		compareCards(openCards[0], openCards[1]);
-		countMoves();
+	if (firstCardIsClicked(clickedCard)){
+		displayCardSymbol(clickedCard);
+		addToOpenedList(clickedCard);
+		if (openCards.length === 2){
+			compareCards(clickedCard);
+			countMoves();
+		}
 	}
 });
 
@@ -72,18 +73,22 @@ function addToOpenedList(target) {
 	openCards.push(target);
 }
 
-function compareCards(firstCard, secondCard) {
-	if (firstCard.className === secondCard.className){
-		firstCard.classList.add('match');
-		secondCard.classList.add('match');
+function firstCardIsClicked(target) {
+	return (target.classList.contains('card') && !target.classList.contains('match') && openCards.length < 2 && !openCards.includes(target));
+}
+
+function compareCards(target) {
+	if (openCards[0].className === openCards[1].className){
+		openCards[0].classList.add('match');
+		openCards[1].classList.add('match');
 		openCards.length = 0;
 		matchedCards++;
 		console.log(matchedCards);
 	}
 	else {
 		setTimeout(() => {
-			displayCardSymbol(firstCard);
-			displayCardSymbol(secondCard);
+			displayCardSymbol(openCards[0]);
+			displayCardSymbol(openCards[1]);
 			openCards.length = 0;
 		}, 1000);
 	}
