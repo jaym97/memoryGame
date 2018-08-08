@@ -1,22 +1,25 @@
 /*
  * Create a list that holds all of your cards
  */
- 
-function createCards() {
-	const deck = document.querySelector('.deck');
-
-	for (let i = 0; i < 16; i++){
-		const cardElement = document.createElement('li');
-		cardElement.classList.add('card');
-		deck.appendChild(cardElement);
-	}
-}
+ const cardList = ['fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath',
+ 					'fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath'];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+
+ function createCards() {
+	const deck = document.querySelector('.deck');
+	shuffle(cardList);
+	for (let i = 0; i < 16; i++){
+		const cardElement = document.createElement('li');
+		cardElement.classList.add('card', cardList[i]);
+		deck.appendChild(cardElement);
+	}
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
