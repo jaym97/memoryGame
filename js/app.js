@@ -4,13 +4,18 @@
  const cardList = ['fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath',
  					'fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath'];
 
+const listOfStars = document.querySelectorAll('.fa-star');
+const papaStar = document.querySelector('.stars');
+for (let star of listOfStars){
+	star.style.display = 'none';
+}
 const deck = document.querySelector('.deck');
 const card = document.querySelectorAll('.deck li');
 const modalID = document.querySelector('.game-cmpltd_modal');
 const closeBtn = document.querySelector('.close-btn');
 const openCards = [];
-let matchedCards = 0;
-let moves = 0;
+let starListLength;
+let matchedCards, moves = 0;
 createCards();
 /*
  * Display the cards on the page
@@ -62,8 +67,9 @@ deck.addEventListener('click', event => {
 		if (openCards.length === 2){
 			compareCards(clickedCard);
 			countMoves();
-			console.log(moves);
 			document.querySelector('.num-of-moves').textContent = `${moves} moves`;
+			displayGameRating(moves);
+			document.querySelector('.num-of-stars').textContent = starListLength;
 		}
 	}
 });
@@ -109,6 +115,30 @@ function countMoves() {
 	movesDisplay.textContent = moves;
 }
 
+function rateGamePlay(n_of_moves) {
+	    starListLength = n_of_moves < 10 ? listOfStars.length = 5
+					:	n_of_moves >= 10 && n_of_moves < 15 ? listOfStars.length = 4
+			    	: 	n_of_moves >= 15 && n_of_moves < 25 ? listOfStars.length = 3
+			    	: 	n_of_moves >= 25 && n_of_moves < 35 ? listOfStars.length = 2
+			    	: 	listOfStars.length = 1;
+    	console.log(starListLength);
+    	return starListLength;
+}
+//https://stackoverflow.com/questions/44937553/remove-last-item-of-a-list-using-javascript
+function displayGameRating(numOfMoves) {
+    setTimeout(() =>{
+    	rateGamePlay(numOfMoves);
+    	console.log(`${starListLength} stars`);
+    	let last = listOfStars[starListLength - 1];
+    	if (starListLength < 5){
+			last.remove();
+		}
+    	for (let star of listOfStars){
+    		star.style.display = 'inline-block';
+    	}
+    }, 1000);
+}
+
 function endGame() {
 	modalID.style.display = 'block';
 }
@@ -116,3 +146,6 @@ function endGame() {
 function closeModal() {
 	modalID.style.display = 'none';
 }
+
+//TODO create timer function
+//TODO fix end game bug
