@@ -111,3 +111,28 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.game-cmpltd_modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.content-wrapper {
+    margin: 40% auto;
+    width: 55%;
+    background: #fff;
+    box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.9);
+    border-radius: 3px;
+}
+
+.close-btn {
+    font-size: 30px;
+    float: right;
+    cursor: pointer;
+}

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Matching Game</title>
     <meta name="description" content="">
-    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
 </head>
@@ -31,14 +31,28 @@
         	<span class="moves">0</span> Moves
 
             <div class="restart">
-        		<button class="score-panel-btn" id="restart-btn">  
-                  <i class="fa fa-repeat"></i>
+        		<button class="score-panel-btn" id="restart-btn">
+                  <i class="fas fa-redo"></i>
               </button>
         	</div>
         </section>
 
         <ul class="deck">
         </ul>
+        <section class="game-cmpltd_modal">
+            <section class="content-wrapper">
+                <section class="modal-header">
+                    <span class="close-btn">&times;</span>
+                    <h1><!--TODO add function to update text here--></h1>
+                </section>
+                <section class="modal-body">
+                    <p>You've matched all cards correctly in <span class="time-spent"></span> with <span class="num-of-moves"></span> and earned a <span class="num-of-stars"></span> star rating.</p>
+                </section>
+                <section class="modal-footer">
+                    <i class="fas fa-redo"></i>
+                </section>
+            </section>
+        </section>
     </div>
 
     <script src="js/app.js"></script>

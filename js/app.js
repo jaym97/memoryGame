@@ -6,6 +6,8 @@
 
 const deck = document.querySelector('.deck');
 const card = document.querySelectorAll('.deck li');
+const modalID = document.querySelector('.game-cmpltd_modal');
+const closeBtn = document.querySelector('.close-btn');
 const openCards = [];
 let matchedCards = 0;
 let moves = 0;
@@ -60,9 +62,13 @@ deck.addEventListener('click', event => {
 		if (openCards.length === 2){
 			compareCards(clickedCard);
 			countMoves();
+			console.log(moves);
+			document.querySelector('.num-of-moves').textContent = `${moves} moves`;
 		}
 	}
 });
+
+closeBtn.addEventListener('click', closeModal);
 
 function displayCardSymbol(target) {
 	target.classList.toggle('open');
@@ -83,7 +89,6 @@ function compareCards(target) {
 		openCards[1].classList.add('match');
 		openCards.length = 0;
 		matchedCards++;
-		console.log(matchedCards);
 	}
 	else {
 		setTimeout(() => {
@@ -94,7 +99,7 @@ function compareCards(target) {
 	}
 
 	if (matchedCards === 8){
-		endGame();// TODO add function
+		endGame();
 	}
 }
 
@@ -102,4 +107,12 @@ function countMoves() {
 	moves++;
 	const movesDisplay = document.querySelector('.moves');
 	movesDisplay.textContent = moves;
+}
+
+function endGame() {
+	modalID.style.display = 'block';
+}
+
+function closeModal() {
+	modalID.style.display = 'none';
 }
