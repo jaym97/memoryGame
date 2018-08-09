@@ -15,7 +15,8 @@ const modalID = document.querySelector('.game-cmpltd_modal');
 const closeBtn = document.querySelector('.close-btn');
 const openCards = [];
 let starListLength;
-let matchedCards, moves = 0;
+let matchedCards = 0;
+let moves = 0;
 createCards();
 /*
  * Display the cards on the page
@@ -68,8 +69,8 @@ deck.addEventListener('click', event => {
 			compareCards(clickedCard);
 			countMoves();
 			document.querySelector('.num-of-moves').textContent = `${moves} moves`;
-			displayGameRating(moves);
 			document.querySelector('.num-of-stars').textContent = starListLength;
+			displayGameRating(moves);
 		}
 	}
 });
@@ -103,7 +104,6 @@ function compareCards(target) {
 			openCards.length = 0;
 		}, 1000);
 	}
-
 	if (matchedCards === 8){
 		endGame();
 	}
@@ -121,14 +121,12 @@ function rateGamePlay(n_of_moves) {
 			    	: 	n_of_moves >= 15 && n_of_moves < 25 ? listOfStars.length = 3
 			    	: 	n_of_moves >= 25 && n_of_moves < 35 ? listOfStars.length = 2
 			    	: 	listOfStars.length = 1;
-    	console.log(starListLength);
     	return starListLength;
 }
 //https://stackoverflow.com/questions/44937553/remove-last-item-of-a-list-using-javascript
 function displayGameRating(numOfMoves) {
     setTimeout(() =>{
     	rateGamePlay(numOfMoves);
-    	console.log(`${starListLength} stars`);
     	let last = listOfStars[starListLength - 1];
     	if (starListLength < 5){
 			last.remove();
@@ -148,4 +146,4 @@ function closeModal() {
 }
 
 //TODO create timer function
-//TODO fix end game bug
+//TODO add reset functionality
