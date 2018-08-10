@@ -5,16 +5,13 @@
  					'fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath'];
 
 const listOfStars = document.querySelectorAll('.fa-star');
-const papaStar = document.querySelector('.stars');
-for (let star of listOfStars){
-	star.style.display = 'none';
-}
 const deck = document.querySelector('.deck');
 const card = document.querySelectorAll('.deck li');
 const modalID = document.querySelector('.game-cmpltd_modal');
 const closeBtn = document.querySelector('.close-btn');
 const resetBtn = document.querySelector('#restart-btn');
 const timer = document.querySelector('.timer-display');
+const movesDisplay = document.querySelector('.moves');
 let timerID;
 const openCards = [];
 let starListLength;
@@ -78,10 +75,10 @@ resetBtn.addEventListener('click', function (e){
 	}
 	timerRunning = 0;
 	openCards.length = 0;
+	matchedCards = 0;
 	createCards();
-	stopTimer();
-	// startGame(e);
-
+	resetTimer();
+	resetMoves();
 });
 
 function displayCardSymbol(target) {
@@ -91,10 +88,8 @@ function displayCardSymbol(target) {
 
 function startGame(event) {
 	const clickedCard = event.target;
-	console.log(timerRunning);
 	startTimer(timerRunning);
 	timerRunning = 1;
-	console.log(`${timerRunning} after`);
 	if (firstCardIsClicked(clickedCard)){
 		displayCardSymbol(clickedCard);
 		addToOpenedList(clickedCard);
@@ -102,8 +97,6 @@ function startGame(event) {
 			compareCards(clickedCard);
 			countMoves();
 			document.querySelector('.num-of-moves').textContent = `${moves} moves`;
-			document.querySelector('.num-of-stars').textContent = starListLength;
-			displayGameRating(moves);
 		}
 	}
 }
@@ -128,17 +121,22 @@ function compareCards(target) {
 			displayCardSymbol(openCards[0]);
 			displayCardSymbol(openCards[1]);
 			openCards.length = 0;
-		}, 1000);
+		}, 800);
 	}
 	if (matchedCards === 8){
+		stopTimer();
 		endGame();
 	}
 }
 
 function countMoves() {
 	moves++;
-	const movesDisplay = document.querySelector('.moves');
 	moves === 1 ? movesDisplay.textContent = `${moves} move` : movesDisplay.textContent = `${moves} moves`;
+}
+
+function resetMoves() {
+	moves = 0;
+	movesDisplay.textContent = `${moves} moves`;
 }
 
 function startTimer(timerRunning) {
@@ -161,31 +159,14 @@ function start(){
 
 function stopTimer() {
 	clearInterval(timerID);
+	document.querySelector('.time-spent').textContent = `${mins}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
+}
+
+function resetTimer() {
+	clearInterval(timerID);
 	seconds = 0;
 	timerRunning = 0;
 	timer.textContent = `0:00`;
-}
-
-function rateGamePlay(n_of_moves) {
-	    starListLength = n_of_moves < 10 ? listOfStars.length = 5
-					:	n_of_moves >= 10 && n_of_moves < 15 ? listOfStars.length = 4
-			    	: 	n_of_moves >= 15 && n_of_moves < 25 ? listOfStars.length = 3
-			    	: 	n_of_moves >= 25 && n_of_moves < 35 ? listOfStars.length = 2
-			    	: 	listOfStars.length = 1;
-    	return starListLength;
-}
-//https://stackoverflow.com/questions/44937553/remove-last-item-of-a-list-using-javascript
-function displayGameRating(numOfMoves) {
-    setTimeout(() =>{
-    	rateGamePlay(numOfMoves);
-    	let last = listOfStars[starListLength - 1];
-    	if (starListLength < 5){
-			last.remove();
-		}
-    	for (let star of listOfStars){
-    		star.style.display = 'inline-block';
-    	}
-    }, 1000);
 }
 
 function endGame() {
@@ -195,3 +176,5 @@ function endGame() {
 function closeModal() {
 	modalID.style.display = 'none';
 }
+
+//TODO improve star rating functionality
