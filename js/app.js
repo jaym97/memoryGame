@@ -13,10 +13,16 @@ const deck = document.querySelector('.deck');
 const card = document.querySelectorAll('.deck li');
 const modalID = document.querySelector('.game-cmpltd_modal');
 const closeBtn = document.querySelector('.close-btn');
+const resetBtn = document.querySelector('#restart-btn');
+const timer = document.querySelector('.timer-display');
+let timerID;
 const openCards = [];
 let starListLength;
 let matchedCards = 0;
 let moves = 0;
+let seconds = 0;
+let timerRunning = 0;
+let mins, remainderSeconds;
 createCards();
 /*
  * Display the cards on the page
@@ -60,8 +66,35 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-deck.addEventListener('click', event => {
+deck.addEventListener('click', evt => {
+	startGame(evt);
+});
+
+closeBtn.addEventListener('click', closeModal);
+
+resetBtn.addEventListener('click', function (e){
+	while (deck.firstChild){
+		deck.removeChild(deck.firstChild);
+	}
+	timerRunning = 0;
+	openCards.length = 0;
+	createCards();
+	stopTimer();
+	// startGame(e);
+
+});
+
+function displayCardSymbol(target) {
+	target.classList.toggle('open');
+	target.classList.toggle('show');
+}
+
+function startGame(event) {
 	const clickedCard = event.target;
+	console.log(timerRunning);
+	startTimer(timerRunning);
+	timerRunning = 1;
+	console.log(`${timerRunning} after`);
 	if (firstCardIsClicked(clickedCard)){
 		displayCardSymbol(clickedCard);
 		addToOpenedList(clickedCard);
@@ -73,13 +106,6 @@ deck.addEventListener('click', event => {
 			displayGameRating(moves);
 		}
 	}
-});
-
-closeBtn.addEventListener('click', closeModal);
-
-function displayCardSymbol(target) {
-	target.classList.toggle('open');
-	target.classList.toggle('show');
 }
 
 function addToOpenedList(target) {
@@ -112,7 +138,32 @@ function compareCards(target) {
 function countMoves() {
 	moves++;
 	const movesDisplay = document.querySelector('.moves');
-	movesDisplay.textContent = moves;
+	moves === 1 ? movesDisplay.textContent = `${moves} move` : movesDisplay.textContent = `${moves} moves`;
+}
+
+function startTimer(timerRunning) {
+	if (timerRunning === 0){
+		startTiming();
+	}
+
+}
+
+function startTiming() {
+	timerID = setInterval(start, 1000);
+}
+
+function start(){
+		seconds++;
+		mins = Math.floor(seconds / 60);
+		remainderSeconds = seconds % 60;
+		timer.textContent = `${mins}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
+}
+
+function stopTimer() {
+	clearInterval(timerID);
+	seconds = 0;
+	timerRunning = 0;
+	timer.textContent = `0:00`;
 }
 
 function rateGamePlay(n_of_moves) {
@@ -144,6 +195,3 @@ function endGame() {
 function closeModal() {
 	modalID.style.display = 'none';
 }
-
-//TODO create timer function
-//TODO add reset functionality
