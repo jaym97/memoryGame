@@ -12,6 +12,7 @@ const closeBtn = document.querySelector('.close-btn');
 const resetBtn = document.querySelector('#restart-btn');
 const timer = document.querySelector('.timer-display');
 const movesDisplay = document.querySelector('.moves');
+const modalTitle = document.querySelector('.modal-title');
 
 let timerID;
 let moves = 0;
@@ -20,7 +21,8 @@ let timerRunning = 0;
 let mins, remainderSeconds;
 const openCards = [];
 let matchedCards = 0;
-let starsLength, stars, starRating;
+let starsLength, stars;
+let starRating = 0;
 
 createCards();
 createStars();
@@ -203,8 +205,10 @@ function rateGamePlay(nMoves) {
 
 		starRating = 1;
 	}
+	else {
+		starRating = 5;
+	}
 
-	console.log(starRating);
 	document.querySelector('.num-of-stars').textContent = `${starRating}`;
 }
 
@@ -224,4 +228,3 @@ function closeModal() {
 	modalID.style.display = 'none';
 }
 
-//TODO improve star rating functionality
