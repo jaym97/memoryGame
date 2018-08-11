@@ -21,8 +21,7 @@ let timerRunning = 0;
 let mins, remainderSeconds;
 const openCards = [];
 let matchedCards = 0;
-let starsLength, stars;
-let starRating = 0;
+let starsLength, stars, starRating;
 
 createCards();
 createStars();
@@ -209,7 +208,18 @@ function rateGamePlay(nMoves) {
 		starRating = 5;
 	}
 
+	updateCongratsTitle(starRating);
 	document.querySelector('.num-of-stars').textContent = `${starRating}`;
+}
+
+function updateCongratsTitle(sRating) {
+	let congratsMessage = sRating === 5 ? modalTitle.textContent = 'Superb Job!'
+						: sRating === 4 ? modalTitle.textContent = 'Great Job!'
+						: sRating === 3 ? modalTitle.textContent = 'Nice Job!'
+						: sRating === 2 ? modalTitle.textContent = 'Good Try!'
+						: modalTitle.textContent = 'Found your keys yet? ;)';
+
+	return congratsMessage;
 }
 
 function resetStars() {
