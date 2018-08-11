@@ -110,6 +110,7 @@ function startTimer(timerRunning) {
 }
 
 function startTiming() {
+	start();
 	timerID = setInterval(start, 1000);
 }
 
