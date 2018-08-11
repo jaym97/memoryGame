@@ -25,7 +25,7 @@ let starsLength, stars, starRating;
 
 createCards();
 createStars();
-rateGamePlay()
+rateGamePlay();
 
 deck.addEventListener('click', evt => {
 	startGame(evt);
@@ -83,7 +83,6 @@ function shuffle(array) {
     return array;
 }
 
-
 function startGame(event) {
 	const clickedCard = event.target;
 	startTimer(timerRunning);
@@ -106,7 +105,6 @@ function startTimer(timerRunning) {
 	if (timerRunning === 0){
 		startTiming();
 	}
-
 }
 
 function startTiming() {
@@ -115,10 +113,10 @@ function startTiming() {
 }
 
 function start(){
-		seconds++;
-		mins = Math.floor(seconds / 60);
-		remainderSeconds = seconds % 60;
-		timer.textContent = `${mins}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
+	seconds++;
+	mins = Math.floor(seconds / 60);
+	remainderSeconds = seconds % 60;
+	timer.textContent = `${mins}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
 }
 
 function firstCardIsClicked(target) {
@@ -164,8 +162,6 @@ function resetMoves() {
 	moves = 0;
 	movesDisplay.textContent = `${moves} moves`;
 }
-
-
 
 function stopTimer() {
 	clearInterval(timerID);

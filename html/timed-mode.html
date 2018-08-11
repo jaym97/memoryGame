@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Timed Mode</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link rel="stylesheet" href="../css/timed-styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Matching Game</h1>
+        </header>
+
+        <section class="level-modal">
+            <section class="content-container">
+                <section class="content-header">
+                    <h1 class="level-title">Pick a Level</h1>
+                    <span class="close-modal">&times;</span>
+                </section>
+
+                <section class="lvl-btns-wrapper">
+                    <button class="lvl-btns" id="hard">Hard!</button>
+                    <button class="lvl-btns" id="medium">Medium</button>
+                    <button class="lvl-btns" id="easy">Easy</button>
+                </section>
+            </section>
+        </section>
+
+        <section class="transition-modal">
+            <section class="content-container transition-text_wrapper">
+                <p class="">You have <span class="time-left_reminder"></span> to try to finish the game. Good luck!</p>
+            </section>
+        </section>
+
+        <section class="score-panel">
+            <p class="timer-display"></p>
+
+            <ul class="stars">
+        	</ul>
+
+        	<span class="moves">0 move</span>
+
+    		<button class="score-panel-btn" id="restart-btn">
+                <i class="fas fa-redo"></i>
+            </button>
+        </section>
+
+        <ul class="deck">
+        </ul>
+
+        <button class="btn" id="change-lvl_btn">change level</button>
+
+        <section class="game-cmpltd_modal">
+            <section class="content-wrapper">
+                <section class="modal-header">
+                    <span class="close-btn">&times;</span>
+                     <h1 class="modal-title"></h1>
+                </section>
+                <section class="modal-body">
+                    <p>You've matched all cards correctly in <span class="time-spent"></span> with <span class="num-of-moves"></span> and earned a <span class="num-of-stars"></span> star rating.</p>
+                </section>
+                <section class="modal-footer">
+                    <i class="fas fa-redo"></i>
+                </section>
+            </section>
+        </section>
+    </div>
+
+    <script src="../js/timed-mode.js"></script>
+</body>
+</html>
+
+<!-- TODO add background music -->
