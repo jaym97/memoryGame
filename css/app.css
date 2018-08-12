@@ -16,9 +16,15 @@ body {
     padding: 0;
 }
 
+.moves,
+.timer-display,
+.modal-body {
+    font-size: 20px;
+}
+
 body {
     background: #fff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    font-family: comic sans ms;
 }
 
 .container {
@@ -26,11 +32,6 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
 }
 
 /*
@@ -81,6 +82,8 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+    animation-name: matched;
+    animation-duration: 0.6s;
 }
 
 .wrong-guess {
@@ -121,9 +124,20 @@ h1 {
     display: inline-block;
 }
 
-.score-panel .restart {
+#restart-btn {
     cursor: pointer;
+    font-size: 20px;
+    background: #0af;
+    outline: none;
+    border: none;
+    box-shadow: 5px 8px 8px -5px rgba(0, 0, 0, 0.7);
+    border-radius: 30%;
+    padding: 5px;
+    width: 30px;
+
 }
+/*
+.score-panel*/
 
 .game-cmpltd_modal {
     display: none;
@@ -136,6 +150,39 @@ h1 {
     background: rgba(0, 0, 0, 0.2);
 }
 
+.modal-header {
+    width: 100%;
+    background: #eea849;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100;
+    background: #eea849;
+}
+
+.modal-title {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+}
+
+.retry {
+    cursor: pointer;
+    font-size: 20px;
+    background: #0af;
+    outline: none;
+    border: none;
+    box-shadow: 5px 8px 8px -5px rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .content-wrapper {
     margin: 30% auto;
     width: 55%;
@@ -145,11 +192,11 @@ h1 {
 }
 
 .close-btn {
-    font-size: 30px;
-    float: right;
+    font-size: 1.5em;
     cursor: pointer;
 }
 
+/*adapted from w3schools how to shake an image https://www.w3schools.com/howto/howto_css_shake_image.asp*/
 @keyframes noMatch {
     0% { transform: translate(1px, 1px) rotate(0deg); background: red;}
     10% { transform: translate(-1px, -2px) rotate(-1deg); background: red;}
@@ -163,5 +210,17 @@ h1 {
     90% { transform: translate(1px, 2px) rotate(0deg); background: red;}
     100% { transform: translate(1px, -2px) rotate(-1deg); background: #2e3d49;}
 }
-    }
+
+@keyframes matched {
+    0% { transform: translate(1px, 1px) rotate(0deg); background: #02ccba;}
+    10% { transform: translate(-3px, -2px) rotate(-1deg); background: #02ccba;}
+    20% { transform: translate(-9px, 0px) rotate(1deg); background: #02ccba;}
+    30% { transform: translate(7px, 3px) rotate(0deg); background: #02ccba;}
+    40% { transform: scale3d(1, 1, 1); background: #02ccba;}
+    50% { transform: scale3d(0.6, 0.5, 0.4);  background: #02ccba;}
+    60% { transform: scale3d(0.8, 0.9, 0.7);  background: #02ccba;}
+    70% { transform: scale3d(1, 1, 1); background: #02ccba;}
+    80% { transform: translate(-1px, -1px) rotate(1deg); background: #02ccba;}
+    90% { transform: translate(1px, 2px) rotate(0deg); background: #02ccba;}
+    100% { transform: translate(1px, -2px) rotate(-1deg); background: ##02ccba;}
 }

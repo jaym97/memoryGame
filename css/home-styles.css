@@ -107,12 +107,12 @@ body {
 .btns {
     outline: none;
     border: none;
-    font-size: 20px;
-    font-family: comic sans ms;
+    font-size: 15px;
+    font-weight: 600;
     padding: 10px 10px;
     background: #0af;
     box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.8);
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .btns:hover {
@@ -151,27 +151,8 @@ body {
 .mode-links {
     text-decoration: none;
     color: #000;
-
-.mode-btn {
-    width: 30%;
-    height: 70%;
-}
-
-@media screen and (max-width: 900px) {
-    .page-container {
-        height: 60%;
-        width: 20%;
-        background: red;
-    }
-    .title-container {
-        height: 10%;
-    }
-
-    .title {
-        color: red;
-    }
-
-    .help-modal {
-        width: 30%;
-    }
+    font-weight: 550;
+    padding: 10px;
+    background: #0af;
+    border-radius: 10px;
 }

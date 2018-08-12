@@ -11,6 +11,7 @@ const card = document.querySelectorAll('.deck li');
 const modalID = document.querySelector('.game-cmpltd_modal');
 const closeBtn = document.querySelector('.close-btn');
 const resetBtn = document.querySelector('#restart-btn');
+const retry = document.querySelector('.retry');
 const timer = document.querySelector('.timer-display');
 const movesDisplay = document.querySelector('.moves');
 const modalTitle = document.querySelector('.modal-title');
@@ -35,6 +36,21 @@ deck.addEventListener('click', evt => {
 closeBtn.addEventListener('click', closeModal);
 
 resetBtn.addEventListener('click', function (e){
+	while (deck.firstChild){
+		deck.removeChild(deck.firstChild);
+	}
+
+	openCards.length = 0;
+	matchedCards = 0;
+
+	createCards();
+	resetTimer();
+	resetMoves();
+	resetStars();
+});
+
+retry.addEventListener('click', function (e){
+	modalID.setAttribute('style', 'display: none');
 	while (deck.firstChild){
 		deck.removeChild(deck.firstChild);
 	}
@@ -173,7 +189,7 @@ function resetMoves() {
 
 function stopTimer() {
 	clearInterval(timerID);
-	document.querySelector('.time-spent').textContent = `${mins}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
+	document.querySelector('.time-spent').textContent = `${mins < 2 ? mins + ' minute' : mins + ' minutes'} ${remainderSeconds < 10 ? '0' : '' }${remainderSeconds} seconds`;
 }
 
 function resetTimer() {
