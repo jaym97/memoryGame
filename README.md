@@ -10,4 +10,4 @@ To play the game, you need a working internet connection so the icons for the ca
 
 ### Link
 
-Click [here](jaym97.github.io/memoryGame) to play the game
+Click https://jaym97.github.io/memoryGame to play the game
