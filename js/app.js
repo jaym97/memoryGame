@@ -17,7 +17,7 @@ const modalTitle = document.querySelector('.modal-title');
 let timerID;
 let moves = 0;
 let seconds = 0;
-let timerRunning = 0;
+let timerRunning = false;
 let mins, remainderSeconds;
 const openCards = [];
 let matchedCards = 0;
@@ -38,7 +38,6 @@ resetBtn.addEventListener('click', function (e){
 		deck.removeChild(deck.firstChild);
 	}
 
-	timerRunning = 0;
 	openCards.length = 0;
 	matchedCards = 0;
 
@@ -86,7 +85,7 @@ function shuffle(array) {
 function startGame(event) {
 	const clickedCard = event.target;
 	startTimer(timerRunning);
-	timerRunning = 1;
+	timerRunning = true;
 
 	if (firstCardIsClicked(clickedCard)){
 		displayCardSymbol(clickedCard);
@@ -102,7 +101,7 @@ function startGame(event) {
 }
 
 function startTimer(timerRunning) {
-	if (timerRunning === 0){
+	if (!timerRunning){
 		startTiming();
 	}
 }
@@ -171,7 +170,7 @@ function stopTimer() {
 function resetTimer() {
 	clearInterval(timerID);
 	seconds = 0;
-	timerRunning = 0;
+	timerRunning = false;
 	timer.textContent = `0:00`;
 }
 

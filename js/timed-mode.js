@@ -1,13 +1,14 @@
 const cardList = ['fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath',
  					'fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath'];
 
-const papaStar = document.querySelector('.stars');
+const nMatchedCards = document.querySelector('.matched-cards');
 
 const deck = document.querySelector('.deck');
 const card = document.querySelectorAll('.deck li');
 
 const modalID = document.querySelector('.game-cmpltd_modal');
 const closeBtn = document.querySelector('.close-btn');
+const retry = document.querySelector('.try-again');
 
 const resetBtn = document.querySelector('#restart-btn');
 const timer = document.querySelector('.timer-display');
@@ -22,18 +23,16 @@ const levelModal = document.querySelector('.level-modal');
 const transitionModal = document.querySelector('.transition-modal');
 const timeLeftID = document.querySelector('.time-left_reminder');
 
-// let timerID;
+let timerID;
+let timerIsRunning = false;
+let secondsLeft;
+
 let moves = 0;
-let seconds = 0;
-let mins, remainderSeconds;
 const openCards = [];
 let matchedCards = 0;
-let starsLength, stars, starRating;
 let thisButton;
 
 createCards();
-createStars();
-rateGamePlay();
 
 hard.addEventListener('click', function(e) {
 	thisButton = e.target;
@@ -55,7 +54,7 @@ easy.addEventListener('click', function(e) {
 
 levelChanger.addEventListener('click', function(){
 	levelModal.setAttribute('style', 'display: block');
-})
+});
 
 deck.addEventListener('click', evt => {
 	startGame(evt);
@@ -64,6 +63,22 @@ deck.addEventListener('click', evt => {
 closeBtn.addEventListener('click', closeModal);
 
 resetBtn.addEventListener('click', function (e){
+	resetTimerDisplay(thisButton);
+	// timerIsRunning = false;
+
+	while (deck.firstChild){
+		deck.removeChild(deck.firstChild);
+	}
+
+	openCards.length = 0;
+	matchedCards = 0;
+
+	createCards();
+	resetMoves();
+
+});
+
+retry.addEventListener('click', function (e){
 	resetTimerDisplay(thisButton);
 
 	while (deck.firstChild){
@@ -74,9 +89,8 @@ resetBtn.addEventListener('click', function (e){
 	matchedCards = 0;
 
 	createCards();
-	// resetTimer();
 	resetMoves();
-	resetStars();
+	closeModal();
 });
 
  function createCards() {
@@ -87,16 +101,6 @@ resetBtn.addEventListener('click', function (e){
 		cardElement.classList.add('card', 'fas', cardList[i]);
 		deck.appendChild(cardElement);
 	}
-}
-
-function createStars() {
-	for (let j = 0; j < 5; j++){
-		const starElement = document.createElement('li');
-		starElement.classList.add('fas', 'fa-star');
-		papaStar.appendChild(starElement);
-	}
-
-	stars = document.querySelectorAll('.fa-star');
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -115,7 +119,11 @@ function shuffle(array) {
 }
 
 function startGame(event) {
+
 	const clickedCard = event.target;
+	startCountdown(timerIsRunning);
+	timerIsRunning = true;
+	console.log(secondsLeft);
 
 	if (firstCardIsClicked(clickedCard)){
 		displayCardSymbol(clickedCard);
@@ -124,8 +132,6 @@ function startGame(event) {
 		if (openCards.length === 2){
 			compareCards(clickedCard);
 			countMoves();
-			rateGamePlay(moves);
-			document.querySelector('.num-of-moves').textContent = `${moves} moves`;
 		}
 	}
 }
@@ -159,7 +165,6 @@ function compareCards(target) {
 	}
 
 	if (matchedCards === 8){
-		// stopTimer();
 		endGame();
 	}
 }
@@ -167,6 +172,8 @@ function compareCards(target) {
 function countMoves() {
 	moves++;
 	moves === 1 ? movesDisplay.textContent = `${moves} move` : movesDisplay.textContent = `${moves} moves`;
+	document.querySelector('.num-of-moves').textContent = `${moves} moves`;
+
 }
 
 function resetMoves() {
@@ -174,70 +181,20 @@ function resetMoves() {
 	movesDisplay.textContent = `${moves} moves`;
 }
 
-// function stopTimer() {
-// 	clearInterval(timerID);
-// }
-
-// function resetTimer() {
-// 	clearInterval(timerID);
-// 	seconds = 0;
-// 	timerRunning = 0;
-// 	timer.textContent = `0:00`;
-// }
-
-function rateGamePlay(nMoves) {
-	if (nMoves > 9 && nMoves < 12){
-		stars[4].setAttribute('style', 'color: #555');
-
-		starRating = 4;
-	}
-	else if (nMoves >= 12 && nMoves < 20){
-		stars[4].setAttribute('style', 'color: #555');
-		stars[3].setAttribute('style', 'color: #555');
-
-		starRating = 3;
-	}
-	else if (nMoves >=20 && nMoves < 25){
-		stars[4].setAttribute('style', 'color: #555');
-		stars[3].setAttribute('style', 'color: #555');
-		stars[2].setAttribute('style', 'color: #555');
-
-		starRating = 2;
-	}
-	else if(nMoves >= 25){
-		for (let k = 4; k > 0; k--){
-			stars[k].setAttribute('style', 'color: #555');
-		}
-
-		starRating = 1;
-	}
-	else {
-		starRating = 5;
-	}
-
-	updateCongratsTitle(starRating);
-	document.querySelector('.num-of-stars').textContent = `${starRating}`;
-}
-
-function updateCongratsTitle(sRating) {
-	let congratsMessage = sRating === 5 ? modalTitle.textContent = 'Superb Job!'
-						: sRating === 4 ? modalTitle.textContent = 'Great Job!'
-						: sRating === 3 ? modalTitle.textContent = 'Nice Job!'
-						: sRating === 2 ? modalTitle.textContent = 'Good Try!'
-						: modalTitle.textContent = 'Found your keys yet? ;)';
+function updateCongratsTitle(matchedCards) {
+	let congratsMessage = matchedCards === 8 ? modalTitle.textContent = 'Superb Job! You are a genius...or extremely fortunate'
+						: matchedCards <= 7 && matchedCards > 5 ? modalTitle.textContent = 'Great Job!'
+						: matchedCards <= 5 &&  matchedCards >= 2 ? modalTitle.textContent = 'Nice Job!'
+						: matchedCards > 1 ? modalTitle.textContent = 'Good Try!'
+						: modalTitle.textContent = 'Sorry, you were too slow this time';
 
 	return congratsMessage;
 }
 
-function resetStars() {
-	while (papaStar.firstChild){
-		papaStar.removeChild(papaStar.firstChild);
-	}
-
-	createStars();
-}
-
 function endGame() {
+	updateCongratsTitle(matchedCards);
+	nMatchedCards.textContent = `${matchedCards <= 1 ? `${matchedCards} card`: `${matchedCards} cards`}`;
+
 	modalID.style.display = 'block';
 }
 
@@ -249,20 +206,23 @@ function setGameMode(clickedButton) {
 	levelModal.style.display = 'none';
 
 	if (clickedButton === hard){
-		timeLeftID.textContent = '12 seconds';
-		timer.textContent = '0:12';
+		timeLeft = 15;
+		timeLeftID.textContent = '15 seconds';
+		timer.textContent = '0:15';
 		startMode();
 	}
 
 	else if (clickedButton === medium){
-		timeLeftID.textContent = '20 seconds';
-		timer.textContent = '0:20';
+		timeLeft = 25;
+		timeLeftID.textContent = '25 seconds';
+		timer.textContent = '0:25';
 
 		startMode();
 
 	}
 
 	else {
+		timeLeft = 35;
 		timeLeftID.textContent = '35 seconds';
 		timer.textContent = '0:35';
 
@@ -279,8 +239,42 @@ function startMode() {
 	}, 3000);
 }
 
+function countdown(timeLeft) {
+
+	const now = Date.now();
+	const then = now + timeLeft * 1000;
+	displayTimeLeft(timeLeft);
+
+	timerID = setInterval(() => {
+			secondsLeft = Math.round((then - Date.now()) / 1000);
+			if (secondsLeft < 0){
+				clearInterval(timerID);
+				return;
+			}
+
+		displayTimeLeft(secondsLeft);
+		if (secondsLeft === 0){
+		endGame();
+		updateCongratsTitle(matchedCards);
+
+	}
+	}, 1000);
+}
+
+function displayTimeLeft(seconds){
+	timer.textContent = `0:${seconds}`;
+}
+
+function startCountdown(timerIsRunning) {
+	if (!timerIsRunning){
+		countdown(timeLeft);
+	}
+}
+
 function resetTimerDisplay(button) {
-	button === hard ? timer.textContent = '0:12': button === medium ? timer.textContent = '0:20': timer.textContent = '0:35';
+	clearInterval(timerID);
+	timerIsRunning = false;
+	button === hard ? timer.textContent = '0:15': button === medium ? timer.textContent = '0:25': timer.textContent = '0:35';
 }
 
 //TODO add countdown functionality
