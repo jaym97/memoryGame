@@ -8,6 +8,6 @@ You play the game by clicking (or tapping on mobile) a card and then try to gues
 
 To play the game, you need a working internet connection so the icons for the cards will be properly loaded.
 
-###Link
+### Link
 
 Click [here](jaym97.github.io/memoryGame) to play the game
