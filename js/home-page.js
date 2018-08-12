@@ -1,5 +1,5 @@
 const helpModalID = document.querySelector('.help-modal');
-const helpButton = document.querySelector('.help-btn');
+const helpButton = document.querySelector('#help-btn');
 const closeModalBtn = document.querySelector('.close-modal');
 
 helpButton.addEventListener('click', function() {

@@ -5,6 +5,7 @@
  					'fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath'];
 
 const papaStar = document.querySelector('.stars');
+const page = document.querySelector('.container');
 const deck = document.querySelector('.deck');
 const card = document.querySelectorAll('.deck li');
 const modalID = document.querySelector('.game-cmpltd_modal');
@@ -88,6 +89,7 @@ function startGame(event) {
 	timerRunning = true;
 
 	if (firstCardIsClicked(clickedCard)){
+		clickedCard.classList.toggle('open');
 		displayCardSymbol(clickedCard);
 		addToOpenedList(clickedCard);
 
@@ -123,7 +125,6 @@ function firstCardIsClicked(target) {
 }
 
 function displayCardSymbol(target) {
-	target.classList.toggle('open');
 	target.classList.toggle('show');
 }
 
@@ -135,21 +136,29 @@ function compareCards(target) {
 	if (openCards[0].className === openCards[1].className){
 		openCards[0].classList.add('match');
 		openCards[1].classList.add('match');
+
 		openCards.length = 0;
 		matchedCards++;
 	}
 	else {
+		openCards[0].classList.toggle('wrong-guess');
+		openCards[1].classList.toggle('wrong-guess');
 		setTimeout(() => {
 			displayCardSymbol(openCards[0]);
 			displayCardSymbol(openCards[1]);
+			openCards[0].classList.toggle('open');
+			openCards[1].classList.toggle('open');
+			openCards[0].classList.remove('wrong-guess');
+			openCards[1].classList.remove('wrong-guess');
 			openCards.length = 0;
-		}, 800);
+		}, 600);
 	}
 
 	if (matchedCards === 8){
 		stopTimer();
 		endGame();
 	}
+	page.removeAttribute('style', 'animation-name: matched; animation-duration: 1s;');
 }
 
 function countMoves() {

@@ -40,7 +40,7 @@ h1 {
 .deck {
     width: 580px;
     min-height: 570px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    background: linear-gradient(160deg, #eea849 0%, #f46b45 100%);
     padding: 22px;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
@@ -81,6 +81,11 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+}
+
+.wrong-guess {
+    animation-name: noMatch;
+    animation-duration: 0.6s;
 }
 
 /*
@@ -143,4 +148,20 @@ h1 {
     font-size: 30px;
     float: right;
     cursor: pointer;
+}
+
+@keyframes noMatch {
+    0% { transform: translate(1px, 1px) rotate(0deg); background: red;}
+    10% { transform: translate(-1px, -2px) rotate(-1deg); background: red;}
+    20% { transform: translate(-3px, 0px) rotate(1deg); background: red;}
+    30% { transform: translate(3px, 2px) rotate(0deg); background: red;}
+    40% { transform: translate(1px, -1px) rotate(1deg); background: red;}
+    50% { transform: translate(-1px, 2px) rotate(-1deg); background: red;}
+    60% { transform: translate(-3px, 1px) rotate(0deg); background: red;}
+    70% { transform: translate(3px, 1px) rotate(-1deg); background: red;}
+    80% { transform: translate(-1px, -1px) rotate(1deg); background: red;}
+    90% { transform: translate(1px, 2px) rotate(0deg); background: red;}
+    100% { transform: translate(1px, -2px) rotate(-1deg); background: #2e3d49;}
+}
+    }
 }

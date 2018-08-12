@@ -20,7 +20,7 @@ body {
     padding: 0;
     margin: 0;
     font-weight: 800;
-    font-size: 1.5em;
+    font-size: 1.1em;
 }
 
 body {
@@ -58,7 +58,7 @@ body {
 
 .modal-content {
     margin: 15% auto;
-    width: 30%;
+    width: 65%;
     background: #fff;
     box-shadow: 8px 8px 8px -5px rgba(0, 0, 0, 0.9);
     border-radius: 3px;
@@ -92,7 +92,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 40%;
+    width: 70%;
     height: 25%;
     background: #fff;
     background-size: cover;
@@ -155,4 +155,23 @@ body {
 .mode-btn {
     width: 30%;
     height: 70%;
+}
+
+@media screen and (max-width: 900px) {
+    .page-container {
+        height: 60%;
+        width: 20%;
+        background: red;
+    }
+    .title-container {
+        height: 10%;
+    }
+
+    .title {
+        color: red;
+    }
+
+    .help-modal {
+        width: 30%;
+    }
 }
