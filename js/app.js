@@ -127,7 +127,7 @@ function startGame(event) {
 		}
 	}
 }
-// timer function adapted from various sources
+// timer function adapted from various countdown examples. Main source: https://www.youtube.com/watch?v=kOcFZV3c75I
 function startTimer(timerRunning) {
 	if (!timerRunning){
 		startTiming();
