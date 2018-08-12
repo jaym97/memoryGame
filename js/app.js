@@ -1,5 +1,5 @@
 /*
- * Create a list that holds all of your cards
+ * Store icon classes in an array
  */
  const cardList = ['fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath',
  					'fa-code', 'fa-coffee', 'fa-microchip', 'fa-sitemap', 'fa-file-code', 'fa-bug', 'fa-code-branch', 'fa-bath'];
@@ -64,6 +64,9 @@ retry.addEventListener('click', function (e){
 	resetStars();
 });
 
+/**
+* @description Creates the cards for the game
+*/
  function createCards() {
 	shuffle(cardList);
 
@@ -74,6 +77,9 @@ retry.addEventListener('click', function (e){
 	}
 }
 
+/**
+* @description Creates the stars 
+*/
 function createStars() {
 	for (let j = 0; j < 5; j++){
 		const starElement = document.createElement('li');
@@ -99,11 +105,15 @@ function shuffle(array) {
     return array;
 }
 
+/**
+* @description Processes game logic once a card is clicked
+* @param {object} event - click event
+*/
 function startGame(event) {
 	const clickedCard = event.target;
 	startTimer(timerRunning);
 	timerRunning = true;
-
+	//check if a card is clicked and prevent it being clicked agiain
 	if (firstCardIsClicked(clickedCard)){
 		clickedCard.classList.toggle('open');
 		displayCardSymbol(clickedCard);
@@ -117,7 +127,7 @@ function startGame(event) {
 		}
 	}
 }
-
+// timer function adapted from various sources
 function startTimer(timerRunning) {
 	if (!timerRunning){
 		startTiming();
@@ -147,7 +157,10 @@ function displayCardSymbol(target) {
 function addToOpenedList(target) {
 	openCards.push(target);
 }
-
+/**
+* @description Compare clicked cards
+* @param {object} target - clicked DOM item
+*/
 function compareCards(target) {
 	if (openCards[0].className === openCards[1].className){
 		openCards[0].classList.add('match');
@@ -157,6 +170,7 @@ function compareCards(target) {
 		matchedCards++;
 	}
 	else {
+		//ensure wrong match animation is done before turning the card back over
 		openCards[0].classList.toggle('wrong-guess');
 		openCards[1].classList.toggle('wrong-guess');
 		setTimeout(() => {
@@ -164,17 +178,17 @@ function compareCards(target) {
 			displayCardSymbol(openCards[1]);
 			openCards[0].classList.toggle('open');
 			openCards[1].classList.toggle('open');
+			//remove the wrong guess animation on the clicked cards
 			openCards[0].classList.remove('wrong-guess');
 			openCards[1].classList.remove('wrong-guess');
 			openCards.length = 0;
 		}, 600);
 	}
-
+	//end game once all cards are matched
 	if (matchedCards === 8){
 		stopTimer();
 		endGame();
 	}
-	page.removeAttribute('style', 'animation-name: matched; animation-duration: 1s;');
 }
 
 function countMoves() {
@@ -198,7 +212,10 @@ function resetTimer() {
 	timerRunning = false;
 	timer.textContent = `0:00`;
 }
-
+/**
+* @description Rate game play based on number of moves. Function is called each time card is clicked so the stars are updated in real time
+* @param {integer} nMoves - Number of moves made by the user
+*/
 function rateGamePlay(nMoves) {
 	if (nMoves > 9 && nMoves < 12){
 		stars[4].setAttribute('style', 'color: #555');
