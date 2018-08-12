@@ -1,37 +1,13 @@
-## Welcome to GitHub Pages
+# Memory Card Matching Game
 
-You can use the [editor on GitHub](https://github.com/jaym97/memoryGame/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## How to Play
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+You play the game by clicking (or tapping on mobile) a card and then try to guess where on the deck its match is and click on it as well. Keep making guesses until all cards are matched. Each guess counts as a move. Try to match all cards in as few moves as possible. Good luck!
 
-### Markdown
+## Dependencies
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+To play the game, you need a working internet connection so the icons for the cards will be properly loaded.
 
-```markdown
-Syntax highlighted code block
+###Link
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/jaym97/memoryGame/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Click [here](jaym97.github.io/memoryGame) to play the game
