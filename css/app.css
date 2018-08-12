@@ -139,6 +139,7 @@ body {
 /*
 .score-panel*/
 
+/* Adapted from vidoe tutorial at https://www.youtube.com/watch?v=6ophW7Ask_0 */
 .game-cmpltd_modal {
     display: none;
     position: fixed;
